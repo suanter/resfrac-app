@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone , ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { BehaviorSubject } from 'rxjs';
 import {
@@ -11,22 +11,21 @@ const electron = (<any>window).require('electron');
   styleUrls: ['./logout.component.css']
 })
 export class LogoutComponent implements OnInit {
-  user = new BehaviorSubject({});
-  constructor(private authorizationService:AuthenticationService, private router: Router, private zone: NgZone, private cdr: ChangeDetectorRef) { 
-  electron.ipcRenderer.on('user_logged_out', (event, user) => {
-    console.log("LogoutComponent Service => event logged out");
-    this.user.next(user);
-    this.cdr.detectChanges();
-    this.zone.run(() => {
-      this.router.navigate(['/']);
+  constructor(private authorizationService: AuthenticationService, private router: Router, private zone: NgZone, private cdr: ChangeDetectorRef) {
+    electron.ipcRenderer.on('user_logged_out', (event, user) => {
+      console.log("LogoutComponent Service => event logged out");
+      this.cdr.detectChanges();
+      this.zone.run(() => {
+        this.router.navigateByUrl('/welcome', { skipLocationChange: true }).then(() =>
+          this.router.navigate(['/welcome']));
       });
-     });
+    });
   }
 
   ngOnInit() {
-   
+
   }
-  logout(){
-  this.authorizationService.logout();
+  logout() {
+    this.authorizationService.logout();
   }
 }

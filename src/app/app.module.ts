@@ -9,7 +9,8 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { AuthenticationService } from './services/authentication.service';
 import { WeatherService } from './services/weather.service';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule  } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,7 @@ import { FormsModule  } from '@angular/forms';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [AuthenticationService,WeatherService ],
+  providers: [AuthenticationService, WeatherService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

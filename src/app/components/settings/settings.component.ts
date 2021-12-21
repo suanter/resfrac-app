@@ -10,8 +10,6 @@ export class SettingsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.form.url_service=Constants.API_ENDPOINT_WEATHER;
+    this.form.url_service = Constants.API_ENDPOINT_WEATHER;
   }
-
-
 }

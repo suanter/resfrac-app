@@ -42,29 +42,29 @@ app.on('window-all-closed', () => {
 });
 
 function isRoot() {
-    return path.parse(process.cwd()).root == process.cwd();
+  return path.parse(process.cwd()).root == process.cwd();
 }
 
 const authFlow = new AuthFlow();
 
 authFlow.authStateEmitter.on(
-    AuthStateEmitter.ON_TOKEN_RESPONSE, received_user_info
+  AuthStateEmitter.ON_TOKEN_RESPONSE, received_user_info
 );
 
-async function received_user_info(user:JSON){
+async function received_user_info(user: JSON) {
 
   console.log("Received user logged information");
   console.log(user)
   win.webContents.send("user_logged", user);
 }
-async function app_ready(){
+async function app_ready() {
   console.log("Creating a new Windows");
   createWindow();
 
 }
 async function signIn() {
   if (win === null) {
-        createWindow();
+    createWindow();
   }
 
   if (!authFlow.loggedIn()) {
@@ -84,18 +84,18 @@ ipcMain.on("get_user_data", (event, action) => {
 });
 
 async function send_user_logout() {
-    console.log("Sending  send_user_logout message");
-    win.webContents.send("user_logged_out", authFlow.getUserData());
+  console.log("Sending  user_logged_out message");
+  win.webContents.send("user_logged_out", {});
 }
 
 ipcMain.on("logout_user", (event, action) => {
   console.log("Received a request to logout ");
-  if( authFlow.loggedIn()){
-      console.log("User was logged in, we logout the user ");
-       send_user_logout()
-       authFlow.signOut();
-      }
-      
+  if (authFlow.loggedIn()) {
+    console.log("User was logged in, we logout the user ");
+    send_user_logout()
+    authFlow.signOut();
+  }
+
 });
 
 

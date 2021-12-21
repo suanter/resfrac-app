@@ -90,8 +90,8 @@ electron_1.ipcMain.on("get_user_data", function (event, action) {
 function send_user_logout() {
     return tslib_1.__awaiter(this, void 0, void 0, function () {
         return tslib_1.__generator(this, function (_a) {
-            console.log("Sending  send_user_logout message");
-            win.webContents.send("user_logged_out", authFlow.getUserData());
+            console.log("Sending  user_logged_out message");
+            win.webContents.send("user_logged_out", {});
             return [2 /*return*/];
         });
     });

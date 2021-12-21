@@ -1,4 +1,4 @@
-import { Component, OnInit,NgZone , ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { BehaviorSubject } from 'rxjs';
 import {
@@ -12,25 +12,25 @@ const electron = (<any>window).require('electron');
 })
 export class WelcomeComponent implements OnInit {
   user = new BehaviorSubject({});
-  constructor(private authenticationService:AuthenticationService, private router: Router, private zone: NgZone, private cdr: ChangeDetectorRef) {
+  constructor(private authenticationService: AuthenticationService, private router: Router, private zone: NgZone, private cdr: ChangeDetectorRef) {
     electron.ipcRenderer.on('user_logged', (event, user) => {
-      console.log("xWelcomeComponent Service => user user_logged status");
+      console.log("User user_logged status");
       this.user.next(user);
       this.cdr.detectChanges();
       this.zone.run(() => {
         this.router.navigate(['/weather']);
-        });
-       });
-   }
+      });
+    });
+  }
 
   ngOnInit() {
 
   }
-  login(action:String){
+  login(action: String) {
     console.log("Sending login request");
     this.authenticationService.login();
   }
-  logout(){
+  logout() {
     this.authenticationService.logout();
   }
 }

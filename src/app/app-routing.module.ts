@@ -8,14 +8,14 @@ import { AuthGuard } from './services/auth.guard';
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
   { path: 'welcome', component: WelcomeComponent },
-  { path: 'weather', component: WeatherComponent, canActivate: [AuthGuard]  },
+  { path: 'weather', component: WeatherComponent, canActivate: [AuthGuard] },
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
-  { path: 'logout', component: LogoutComponent,canActivate: [AuthGuard]  },
+  { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers:[AuthGuard]
+  providers: [AuthGuard]
 })
 export class AppRoutingModule { }

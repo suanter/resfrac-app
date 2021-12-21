@@ -54,7 +54,7 @@ const redirectUri = "http://127.0.0.1:8000";
 const scope = "openid";
 
 export class AuthFlow {
-  private user_data={}
+  private user_data = {}
   private notifier: AuthorizationNotifier;
   private authorizationHandler: AuthorizationRequestHandler;
   private tokenHandler: TokenRequestHandler;
@@ -81,35 +81,35 @@ export class AuthFlow {
         console.log("Response from autorizing Listener");
         console.log(response);
         let codeVerifier: string | undefined;
-        if(request.internal && request.internal.code_verifier) {
+        if (request.internal && request.internal.code_verifier) {
           codeVerifier = request.internal.code_verifier;
         }
 
         this.makeRefreshTokenRequest(response.code, codeVerifier)
           .then(result => this.performWithFreshTokens())
-          .then((token:string) => {
-            const instance =   axios.create({
+          .then((token: string) => {
+            const instance = axios.create({
               baseURL: "https://www.googleapis.com",
               timeout: 1000,
-              headers: {'Authorization': 'Bearer '+token}
+              headers: { 'Authorization': 'Bearer ' + token }
             });
-            
+
             instance.get('/oauth2/v2/userinfo')
-            .then(response => {
-              let userData=response.data;
-              userData['token'] = token;
-              userData['logged'] = this.loggedIn();
-              this.user_data=userData;
-              this.authStateEmitter.emit(AuthStateEmitter.ON_TOKEN_RESPONSE,userData);
-              log("All Done.");
-            })
+              .then(response => {
+                let userData = response.data;
+                userData['token'] = token;
+                userData['logged'] = this.loggedIn();
+                this.user_data = userData;
+                this.authStateEmitter.emit(AuthStateEmitter.ON_TOKEN_RESPONSE, userData);
+                log("All Done.");
+              })
           });
       }
     });
   }
-  getUserData(){
-    if(this.user_data)
-        return this.user_data;
+  getUserData() {
+    if (this.user_data)
+      return this.user_data;
   }
   fetchServiceConfiguration(): Promise<void> {
     return AuthorizationServiceConfiguration.fetchFromIssuer(
@@ -149,7 +149,7 @@ export class AuthFlow {
     );
   }
 
-  private makeRefreshTokenRequest(code: string, codeVerifier: string|undefined): Promise<void> {
+  private makeRefreshTokenRequest(code: string, codeVerifier: string | undefined): Promise<void> {
     if (!this.configuration) {
       log("Unknown service configuration");
       return Promise.resolve();
@@ -157,7 +157,7 @@ export class AuthFlow {
 
     const extras: StringMap = {};
 
-    if(codeVerifier) {
+    if (codeVerifier) {
       extras.code_verifier = codeVerifier;
     }
 
@@ -179,7 +179,7 @@ export class AuthFlow {
         this.accessTokenResponse = response;
         return response;
       })
-      .then(() => {});
+      .then(() => { });
   }
   loggedIn(): boolean {
     return !!this.accessTokenResponse && this.accessTokenResponse.isValid();
@@ -188,7 +188,7 @@ export class AuthFlow {
   signOut() {
     // forget all cached token state
     this.accessTokenResponse = undefined;
-    this.user_data={}
+    this.user_data = {}
   }
   performWithFreshTokens(): Promise<string> {
     if (!this.configuration) {
