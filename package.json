@@ -1,5 +1,5 @@
 {
-  "name": "ResFrac Assign",
+  "name": "ResFracApp",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -28,8 +28,10 @@
     "electron": "^4.1.0",
     "flex-layout": "^1.0.1",
     "jquery": "^3.6.0",
+    "ngx-electron": "^2.2.0",
     "popper.js": "^1.16.1",
-    "rxjs": "~6.3.3",
+    "rxjs": "^7.4.0",
+    "sqlite3": "^5.0.2",
     "tslib": "^1.9.0",
     "typeorm": "^0.2.41",
     "yarn": "^1.22.17",

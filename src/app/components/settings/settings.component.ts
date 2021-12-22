@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Constants } from 'src/app/config/constants';
+import { User } from 'src/app/database/model/user.schema';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -10,6 +11,7 @@ export class SettingsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.form.url_service = Constants.API_ENDPOINT_WEATHER;
-  }
+  this.form.url_service = Constants.API_ENDPOINT_WEATHER;
+}
+
 }
